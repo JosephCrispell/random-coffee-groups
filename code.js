@@ -31,19 +31,19 @@ $('button').on('click', function(e) {
     var numgroups = -1;
 
     // Check if a number of groups was provided
-    if($('.pergroup').val()){
+    if(document.getElementsByClassName("pergroup")[0].value){
 
         // Get the number of names per group
-        namespergroup = parseInt($('.pergroup').val());
+        namespergroup = parseInt(document.getElementsByClassName("pergroup")[0].value);
 
         // Calculate the number of groups
         numgroups = Math.ceil(allnameslen / namespergroup);
 
     // Otherwise check if size of each group was provided
-    } else if($('.numgroups').val()){
+    } else if(document.getElementsByClassName("numgroups")[0].value){
 
         // Get the number of groups
-        numgroups = parseInt($('.numgroups').val());
+        numgroups = parseInt(document.getElementsByClassName("numgroups")[0].value);
         
         // Calculate the number of individuals per group
         namespergroup = allnameslen / numgroups;
@@ -54,17 +54,20 @@ $('button').on('click', function(e) {
         return;
     }
 
-    console.log("Number of people per group: " + namespergroup);
-    console.log("Number of groups: " + numgroups);
+    // Get the groups element
+    var groupsElement = document.getElementsByClassName("groups")[0];
 
     // Empty the groups element    
-	$('.groups').empty();
+	groupsElement.innerHTML = "";
 
     // Create table header - a column for each group
 	for (i = 0; i < numgroups; i++) {
-		$('.groups').append('<div class="group" id="group' + (i+1) + '"><h2>Group ' + (i+1) + '</h2></div>');
+
+        // Create an append content to the groups element
+        groupsElement.innerHTML += '<div class="group" id="group' + (i+1) + '"><h2>Group ' + (i+1) + '</h2></div>';
 	}
 
+    // Randomly select students for each group
 	$('.group').each(function() {
 		for (j = 0; j < namespergroup; j++) {
 			var randname = Math.floor(Math.random() * allnames.length);
