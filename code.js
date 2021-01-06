@@ -8,14 +8,15 @@ function getStudentNames(){
     // Remove empty lines
     for(var i = 0; i < names.length; i++){
 
-        // Remove blank spaces from current name
-        var nameWithoutSpaces = names[i].replace(/[^A-Z0-9]+/ig, '');
+        console.log(i + "   " + typeof(names[i]));
 
-        console.log(names[i] + "  " + nameWithoutSpaces);
+        var nameWithoutSpaces = names[i].replace(/\s/g, '');
+
+        console.log(names[i] + "---" + nameWithoutSpaces + "end");
 
         // Check if name empty
-        if(nameWithoutSpaces.length == 0 || nameWithoutSpaces == "" || nameWithoutSpaces == "\n"){
-            //console.log("Removed empty name");
+        if(nameWithoutSpaces.length == 0 || names[i] == undefined || names[i] == null){
+
             names.splice(i, 1);
         }
     }
@@ -23,7 +24,9 @@ function getStudentNames(){
     console.log(names.length);
     console.log(names);
 
-    return(names);
+    return(names.filter(function (el) {
+        return el != null;
+      }););
 }
 
 $('button').on('click', function(e) {
