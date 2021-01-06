@@ -1,12 +1,39 @@
+function getStudentNames(){
+
+    // Get the student names - one per line
+    var names = $('textarea').val().split('\n');
+
+    console.log(names.length);
+
+    // Remove empty lines
+    for(var i = 0; i < names.length; i++){
+
+        // Remove blank spaces from current name
+        var nameWithoutSpaces = names[i].replace(/[^A-Z0-9]+/ig, '');
+
+        console.log(names[i] + "  " + nameWithoutSpaces);
+
+        // Check if name empty
+        if(nameWithoutSpaces.length == 0 || nameWithoutSpaces == "" || nameWithoutSpaces == "\n"){
+            //console.log("Removed empty name");
+            names.splice(i, 1);
+        }
+    }
+
+    console.log(names.length);
+    console.log(names);
+
+    return(names);
+}
+
 $('button').on('click', function(e) {
     
     // Prevent the default event action
     e.preventDefault();
     
     // Get the student names
-    var allnames = $('textarea').val().split('\n');
+    var allnames = getStudentNames();
     var allnameslen = allnames.length;
-    console.log(allnames);
 
     // Initialise variables to store group dimensions
     var namespergroup = -1;
@@ -32,11 +59,17 @@ $('button').on('click', function(e) {
         
     // Otherwise prompt user to provide value
 	} else {
-        console.log("Please provide either a number of groups or the size of each group.")
+        console.log("Please provide either a number of groups or the size of each group.");
+        return;
     }
 
+    console.log("Number of people per group: " + namespergroup);
+    console.log("Number of groups: " + numgroups);
+
+    // Empty the groups element    
 	$('.groups').empty();
 
+    // Create table header - a column for each group
 	for (i = 0; i < numgroups; i++) {
 		$('.groups').append('<div class="group" id="group' + (i+1) + '"><h2>Group ' + (i+1) + '</h2></div>');
 	}
@@ -48,7 +81,6 @@ $('button').on('click', function(e) {
 				$(this).append('<p>' + allnames[randname] + '</p>');
 			}
 			allnames.splice(randname, 1);
-			console.log(allnames);
 		}
 	});
 });
