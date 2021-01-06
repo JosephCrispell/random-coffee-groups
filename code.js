@@ -1,32 +1,20 @@
 function getStudentNames(){
 
     // Get the student names - one per line
-    var names = $('textarea').val().split('\n');
+    var names = document.getElementById("students").value.split('\n');
 
     console.log(names.length);
 
     // Remove empty lines
     for(var i = 0; i < names.length; i++){
 
-        console.log(i + "   " + typeof(names[i]));
-
-        var nameWithoutSpaces = names[i].replace(/\s/g, '');
-
-        console.log(names[i] + "---" + nameWithoutSpaces + "end");
-
-        // Check if name empty
-        if(nameWithoutSpaces.length == 0 || names[i] == undefined || names[i] == null){
-
+        // Check if name empty and remove
+        if(names[i].replace(/\s/g, '').length == 0){
             names.splice(i, 1);
         }
     }
 
-    console.log(names.length);
-    console.log(names);
-
-    return(names.filter(function (el) {
-        return el != null;
-      }););
+    return(names);
 }
 
 $('button').on('click', function(e) {
