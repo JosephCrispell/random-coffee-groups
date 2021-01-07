@@ -4,9 +4,6 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <!-- Load jQuery library - used in javascript code -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 		<!-- Load the stylesheet -->
         <link rel="stylesheet" href="./style.css"/>
 	</head>
@@ -15,9 +12,9 @@
 		<h1>Random group generator</h1>
         <div class="wrap alt">
             
-            <p class="toggle-wrap">Number of People per group <a class="choice" href="#choice"><strong>TOGGLE</strong><span class="switch"></span></a> Number of Groups</p>
-	        <p class="pergroup-wrap">Number of students per group: <input class="pergroup" type="integer" value="2" /></p>
-	        <p class="numgroups-wrap">Number of groups: <input class="numgroups" type="integer" value="4" /></p>
+            <p class="toggle-wrap">Number of People per group <a class="choice" id="toggleSelection" href="#choice"><strong>TOGGLE</strong><span class="switch"></span></a> Number of Groups</p>
+	        <p class="pergroup-wrap">Number of students per group: <input class="pergroup" type="integer" value="" /></p>
+	        <p class="numgroups-wrap">Number of groups: <input class="numgroups" type="integer" value="4" /></p> <!-- Defaults as starting with using number of groups -->
             
             <p><textarea name="students" id="students" cols="40" rows="15">
 Lovella
@@ -34,7 +31,7 @@ Shonda
 Wesley
             </textarea></p>
 
-	        <button>Make Groups</button>
+	        <button id="makeGroups">Make Groups</button>
         
             <div class="groups"></div>
 

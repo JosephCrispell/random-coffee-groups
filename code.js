@@ -3,8 +3,6 @@ function getStudentNames(){
     // Get the student names - one per line
     var names = document.getElementById("students").value.split('\n');
 
-    console.log(names.length);
-
     // Remove empty lines
     for(var i = 0; i < names.length; i++){
 
@@ -17,10 +15,7 @@ function getStudentNames(){
     return(names);
 }
 
-$('button').on('click', function(e) {
-    
-    // Prevent the default event action
-    e.preventDefault();
+document.getElementById("makeGroups").addEventListener("click", function() {
     
     // Get the student names
     var allnames = getStudentNames();
@@ -68,25 +63,31 @@ $('button').on('click', function(e) {
 	}
 
     // Randomly select students for each group
-	$('.group').each(function() {
-		for (j = 0; j < namespergroup; j++) {
-			var randname = Math.floor(Math.random() * allnames.length);
+    var groups = document.querySelectorAll('.group');
+    for(var i = 0; i < groups.length; i++){
+
+        // Randomly select each group member - up to the number of students per group
+        for (j = 0; j < namespergroup; j++) {
+
+            // Select random student index from those remaining
+            var randname = Math.floor(Math.random() * allnames.length);
+            
+            // Check element selected exists - if so add student name into current group
 			if(allnames[randname]){
-				$(this).append('<p>' + allnames[randname] + '</p>');
-			}
+                groups[i].innerHTML += '<p>' + allnames[randname] + '</p>';
+            }
+            
+            // Remove chosen student from those remaining
 			allnames.splice(randname, 1);
 		}
-	});
+    }
 });
 
 // Attach function to switch that toggles between methods to generate groups
-$('.toggle-wrap a').on('click', function(e){
-    
-    // Prevent the default action
-    e.preventDefault();
+document.getElementById("toggleSelection").addEventListener("click", function(){
 
     // Toggle the button
-    var on = document.getElementsByClassName("wrap")[0].classList.toggle("alt")
+    var on = document.getElementsByClassName("wrap")[0].classList.toggle("alt");
         
     // Insert the default value
     if(on){
