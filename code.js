@@ -81,8 +81,19 @@ $('button').on('click', function(e) {
 
 // Attach function to switch that toggles between methods to generate groups
 $('.toggle-wrap a').on('click', function(e){
-	e.preventDefault();
-	$('.wrap').toggleClass('alt');
-    $('.pergroup-wrap').find('input').val('2');
-    $('.numgroups-wrap').find('input').val('4');
+    
+    // Prevent the default action
+    e.preventDefault();
+
+    // Toggle the button
+    var on = document.getElementsByClassName("wrap")[0].classList.toggle("alt")
+        
+    // Insert the default value
+    if(on){
+        document.getElementsByClassName("numgroups")[0].value = "4";
+        document.getElementsByClassName("pergroup")[0].value = "";
+    } else {
+        document.getElementsByClassName("numgroups")[0].value = "";
+        document.getElementsByClassName("pergroup")[0].value = "2";
+    }
 });
