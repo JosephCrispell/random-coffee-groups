@@ -15,6 +15,31 @@ function getStudentNames(){
     return(names);
 }
 
+function randomlyAssignStudentsToGroups(students, nStudentsPerGroup){
+
+    // Get each of the group divisions
+    var groups = document.querySelectorAll('.group');
+
+    // Get each group within the groups array
+    for(var i = 0; i < groups.length; i++){
+
+        // Randomly select each group member - up to the number of students per group
+        for (j = 0; j < nStudentsPerGroup; j++) {
+
+            // Select random student index from those remaining
+            var randomIndex = Math.floor(Math.random() * students.length);
+            
+            // Check element selected exists - if so add student name into current group
+			if(students[randomIndex]){
+                groups[i].innerHTML += '<p>' + students[randomIndex] + '</p>';
+            }
+            
+            // Remove chosen student from those remaining
+			students.splice(randomIndex, 1);
+		}
+    }
+}
+
 document.getElementById("makeGroups").addEventListener("click", function() {
     
     // Get the student names
@@ -63,24 +88,7 @@ document.getElementById("makeGroups").addEventListener("click", function() {
 	}
 
     // Randomly select students for each group
-    var groups = document.querySelectorAll('.group');
-    for(var i = 0; i < groups.length; i++){
-
-        // Randomly select each group member - up to the number of students per group
-        for (j = 0; j < namespergroup; j++) {
-
-            // Select random student index from those remaining
-            var randname = Math.floor(Math.random() * allnames.length);
-            
-            // Check element selected exists - if so add student name into current group
-			if(allnames[randname]){
-                groups[i].innerHTML += '<p>' + allnames[randname] + '</p>';
-            }
-            
-            // Remove chosen student from those remaining
-			allnames.splice(randname, 1);
-		}
-    }
+    randomlyAssignStudentsToGroups(allnames, namespergroup);
 });
 
 // Attach function to switch that toggles between methods to generate groups
