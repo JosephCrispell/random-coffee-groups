@@ -89,6 +89,19 @@ document.getElementById("makeGroups").addEventListener("click", function() {
 
     // Randomly select students for each group
     randomlyAssignStudentsToGroups(allnames, namespergroup);
+
+    // Check if emails were provided
+    if(document.getElementById("usingEmails").checked){
+        
+        // Get the student names - they were wiped when the groups were created
+        allnames = getStudentNames();
+
+        // Get the contents of the group element
+        var groupsHTML = groupsElement.innerHTML
+
+        // Create a draft email to all students
+        window.open("mailto:?bcc=" + allnames.join(";") + "&subject=New random group assignments&body=" + groupsElement.outerHTML);
+    }
 });
 
 // Attach function to switch that toggles between methods to generate groups
